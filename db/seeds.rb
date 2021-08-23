@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.all.each do |user|
+    user.tweets.create([
+        { content: "#{user.name} あああああ"},
+        { content: "#{user.name} いいいいい"}
+    ])
+end

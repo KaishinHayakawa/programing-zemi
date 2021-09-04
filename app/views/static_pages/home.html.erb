@@ -1,0 +1,63 @@
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <h1><%= current_user.name %></h1>
+        <p><%= link_to "プロフィールを見る", current_user %></p>
+        <p><%= current_user.tweets.count %> ツイート </p>
+      </section>
+      <section class="tweet_form">
+        <%= form_for(@tweet) do |f| %>
+          <% if @tweet.errors.any? %>
+            <div id="error_explanation">
+              <div class="alert alert-danger">
+                <%= @tweet.errors.count %>つのエラーがあります。
+              </div>
+              <ul>
+                <% @tweet.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field">
+            <%= f.text_area :content, placeholder: "こんにちは" %>
+          </div>
+          <%= f.submit "投稿", class: "btn btn-primary" %>
+        <% end %>
+      </section>
+    </aside>
+
+    <div class="col-md-8">
+    <% if @tweets.any? %>
+      <%= will_paginate @tweets %>
+      <ol class="tweets">
+        <% @tweets.each do |tweet| %>
+          <li id="tweet-<%= tweet.id %>">
+            <span class="user"><%= link_to tweet.user.name, tweet.user %></span>
+            <span class="content"><%= tweet.content %></span>
+            <span class="timestamp">
+              投稿日<%= time_ago_in_words(tweet.created_at) %> 前
+              <% if current_user?(tweet.user) %>
+              <%= link_to "編集", edit_tweet_path(tweet)%>
+              <%= link_to "削除", tweet, method: :delete, data: { confirm: "削除しますか？" } %>
+              <% end %>
+            </sapn>
+          </li>
+        <% end %>
+      </ol>
+      <%= will_paginate @tweets %>
+    <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+    <h1>ようこそ！</h1>
+
+    <h2>
+      まずはサインアップしてみよう！
+    </h2>
+
+    <%= link_to "サインアップ！", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

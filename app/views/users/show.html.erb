@@ -1,0 +1,56 @@
+<div class="row">
+    <aside class="col-md-4">
+        <section class="user_info">
+            <h1>
+            <%= @user.name %>
+            </h1>
+            <p>
+                <% if current_user != @user %>
+                    <% if current_user.following?(@user) %>
+                        <%= link_to 'フォロー解除', unfollow_path(@user.id), method: :POST %>
+                    <% else %>
+                        <%= link_to 'フォローする', follow_path(@user.id), method: :POST %>
+                    <% end %>
+                <% end %>
+            </p>
+        </section>
+        <section>
+        <div class="stats">
+            <a href="<%= following_user_path(@user) %>">
+                <strong id="follower" class="stat">
+                <%= @user.follower.count %>
+                </strong>
+                フォロー
+            </a>
+            <a href="<%= followers_user_path(@user) %>">
+                <strong id="followed" class="stat">
+                <%= @user.followed.count %>
+                </strong>
+                フォロワー
+            </a>
+        </div>
+        </section>
+    </aside>
+    <div class="col-md-8">
+    <% if @user.tweets.any? %>
+        <h3>ツイート (<%= @user.tweets.count %>)</h3>
+        <ol class="tweets">
+            <% @tweets.each do |tweet| %>
+                <li id="tweet-<%= tweet.id %>">
+                    <span class="user"><%= link_to tweet.user.name, tweet.user %></span>
+                    <span class="content"><%= tweet.content %></span>
+                    <span class="timestamp">
+                        投稿日 <%= time_ago_in_words(tweet.created_at) %> 前
+                    </span>
+                </li>
+            <% end %>
+        </ol>
+    <% end %>
+    </div>
+</div>
+
+    
+
+
+
+     

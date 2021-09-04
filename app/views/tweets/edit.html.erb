@@ -1,0 +1,31 @@
+<h1>ツイート編集</h1>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <%= form_for(@tweet) do |f| %>
+            <% if @tweet.errors.any? %>
+                <div id="error_explanation" >
+                    <div class="alert alert-danger">
+                        <%= @tweet.errors.count %>つのエラーがあります。
+                    </div>
+                    <ul>
+                        <% @tweet.errors.full_messengers.each do |msg| %>
+                        <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+             
+            <%= f.label :content %>
+            <%= f.text_field :content, class: 'form-control' %>
+            
+            <%= f.submit "変更を保存する", class: "btn-primary" %>
+        <% end %>
+    </div>
+</div>
+        
+    
+
+
+
+     

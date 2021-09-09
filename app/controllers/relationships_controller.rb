@@ -7,4 +7,12 @@ class RelationshipsController < ApplicationController
         current_user.unfollow(params[:id])
         redirect_to user_path
     end
+    def block
+        current_user.follow(params[:id])
+        redirect_to user_path
+    end
+    def unblock
+        current_user.unfollow(params[:id])
+        redirect_to user_path
+    end
 end

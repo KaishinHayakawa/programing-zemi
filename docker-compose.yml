@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3'
 services:
   web:
@@ -8,4 +9,16 @@ services:
     ports:
       - 8082:3000
     tty: true
+=======
+version: '3'
+services:
+  web:
+    build: .
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - 8080:3000
+    tty: true
+>>>>>>> 0e75bb4ea685b8a7d357057e5effa880d3cedd17
     stdin_open: true

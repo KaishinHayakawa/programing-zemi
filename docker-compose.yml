@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 version: '3'
 services:
   web:
@@ -9,7 +9,7 @@ services:
     ports:
       - 8082:3000
     tty: true
-=======
+
 version: '3'
 services:
   web:
@@ -20,5 +20,4 @@ services:
     ports:
       - 8080:3000
     tty: true
->>>>>>> 0e75bb4ea685b8a7d357057e5effa880d3cedd17
     stdin_open: true

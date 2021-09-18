@@ -29,6 +29,7 @@
     </aside>
 
     <div class="col-md-8">
+    <%= @retweets %>
     <% if @tweets.any? %>
       <%= will_paginate @tweets %>
       <ol class="tweets">
@@ -41,6 +42,8 @@
               <% if current_user?(tweet.user) %>
               <%= link_to "編集", edit_tweet_path(tweet)%>
               <%= link_to "削除", tweet, method: :delete, data: { confirm: "削除しますか？" } %>
+              <% else %>
+              <%= link_to "リツイート", tweet_retweets_path(tweet), method: :post, data: { confirm: "リツイートしますか？" } %>
               <% end %>
             </sapn>
           </li>

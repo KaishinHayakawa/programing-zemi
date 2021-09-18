@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get  'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
+  #post 'tweets/:id' => 'static_pages#create'
   post 'follow/:id' => 'relationships#follow', as: 'follow'
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
   resources :users do
@@ -16,5 +17,7 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  resources :tweets, only: [:create, :edit, :update, :destroy]
+  resources :tweets, only: [:create, :edit, :update, :destroy] do
+    resources :retweets, only: [:create, :destroy]
+  end
 end

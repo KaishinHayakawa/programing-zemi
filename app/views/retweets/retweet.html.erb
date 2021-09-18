@@ -1,0 +1,16 @@
+if user_signed_in?
+  unless tweet.user.id == current_user.id  # 自身の投稿はリツイートできない
+    if current_user.retweeted?(tweet.id)
+    = link_to "/tweets/#{tweet.id}/retweets/#{tweet.retweets.ids}", method: :delete, title: "リツイートを取り消す", remote: true do
+      %i.fas.fa-retweet.tweet-action__retweet--retweeted
+      = tweet.retweets.length
+    else
+    = link_to "/tweets/#{tweet.id}/retweets", method: :post, title: "リツイートする", data: {confirm: "この投稿をリツイートしますか？"}, remote: true do
+      %i.fas.fa-retweet
+    = tweet.retweets.length
+  else
+  %i.fas.fa-retweet.nonactive
+  = tweet.retweets.length
+else
+%i.fas.fa-retweet.nonactive
+= tweet.retweets.length
